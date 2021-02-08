@@ -9,7 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws": "0.0.3-2",
-    "crypto-mpc": "0.0.3"
+    "crypto": "^1.0.1",
+    "crypto-mpc": "^0.0.3",
+    "ffi-napi": "^2.5.0",
+    "ref-napi": "^2.0.0"
+  },
+  "devDependencies": {
+    "elliptic": "^6.5.4",
+    "tweetnacl": "^1.0.3"
   }
 }

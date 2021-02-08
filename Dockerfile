@@ -12,4 +12,4 @@ USER node
 
 EXPOSE 3000
 
-CMD ["node", "./examples/eddsa.js"]
+CMD ["node", "./eddsa.js"]

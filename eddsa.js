@@ -2,17 +2,19 @@ const crypto = require('crypto');
 const { Context, utils } = require('crypto-mpc');
 const nacl = require('tweetnacl');
 
+console.log("EDDSA");
+
 console.log('Backup key');
 const backupKey = crypto.generateKeyPairSync('rsa', {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-        type: 'spki',
-        format: 'der'
-    },
-    privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'der',
-    }
+  modulusLength: 2048,
+  publicKeyEncoding: {
+    type: 'spki',
+    format: 'der'
+  },
+  privateKeyEncoding: {
+    type: 'pkcs8',
+    format: 'der',
+  }
 });
 
 console.log('Generate key');
@@ -33,7 +35,7 @@ utils.run(c1, c2);
 console.log('Signature 1:', c1.getSignature().toString('hex'));
 console.log('Signature 2:', c2.getSignature().toString('hex'));
 const signature = c1.getSignature();
-console.log('Signature:', nacl.sign.detached.verify(hash, signature, publicKey));
+console.log('Signature:', signature.toString('hex'));
 
 c1 = Context.createBackupEddsaKey(1, k1, backupKey.publicKey);
 c2 = Context.createBackupEddsaKey(2, k2, backupKey.publicKey);
@@ -43,5 +45,4 @@ console.log('Backup verify:', utils.verifyEddsaBackupKey(backupKey.publicKey, pu
 const privateKey = utils.restoreEddsaKey(backupKey.privateKey, publicKey, backup);
 const secretKey = Buffer.concat([privateKey, publicKey]);
 console.log('Secret key:', secretKey.toString('hex'));
-const signature2 = nacl.sign.detached(hash, secretKey);
-console.log('Secret verify:', nacl.sign.detached.verify(hash, signature2, publicKey));
+console.log('Secret verify:', nacl.sign.detached.verify(hash, signature, publicKey));
