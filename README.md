@@ -6,7 +6,7 @@ Run:
 
 docker-compose up
 
-方法二：
+方法2:
 
 1. docker build -t mpc .
 2. docker run mpc
